@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:recipes_app_design/providers/category_provider.dart';
 import 'package:recipes_app_design/providers/meal_provider.dart';
+import 'package:recipes_app_design/screen/search_screen.dart';
 
 import 'screen/main_screen.dart';
 import 'screen/splash_screen.dart';
@@ -36,6 +37,7 @@ class MyApp extends StatelessWidget {
       routes: {
         '/': (context) => SplashScreen(),
         '/main': (context) => MainScreen(),
+        "/search": (context) => SearchScreen(),
       },
     );
   }

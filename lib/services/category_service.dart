@@ -17,8 +17,20 @@ class CategoryService {
     return null;
   }
 
-  Future<List<MealCategoryModel>?> getMealsBasedonCategory(
+  Future<List<MealCategoryModel>?> getMealsBasedOnCategory(
       {required String name}) async {
+    String url = "${urlString}filter.php?c=$name";
+
+    final parsedUrl = Uri.parse(url);
+    final response = await http.get(parsedUrl);
+    if (response.statusCode == 200) {
+      final responseBody = response.body;
+      return mealsFromJson(responseBody);
+    }
+    return null;
+  }
+
+  Future<List<MealCategoryModel>?> searchMeal({required String name}) async {
     String url = "${urlString}filter.php?c=$name";
 
     final parsedUrl = Uri.parse(url);

@@ -30,15 +30,10 @@ class CategoryProvider extends ChangeNotifier {
     isMealLoading = true;
     notifyListeners();
 
-    final response = await _service.getMealsBasedonCategory(name: categoryName);
+    final response = await _service.getMealsBasedOnCategory(name: categoryName);
     _meals = response!;
     isMealLoading = false;
     notifyListeners();
     return _meals;
   }
-
-  // void callBothMethods() {
-  //   getAllCategories();
-  //   getMealsBasedOnCategories(categoryName: "Beef");
-  // }
 }

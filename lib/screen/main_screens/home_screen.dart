@@ -460,28 +460,43 @@ class _HomeScreenState extends State<HomeScreen> {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
-        SizedBox(
-          width: MediaQuery.of(context).size.width * 0.76,
-          child: TextField(
-            decoration: InputDecoration(
-              fillColor: Colors.white,
-              filled: true,
-              hintText: "Search recipe",
-              hintStyle: TextStyle(
-                color: Color(0xffd9d9d9),
-              ),
-              prefixIcon: Icon(
-                IconsaxPlusLinear.search_normal_1,
-                color: Color(0xffd9d9d9),
-              ),
-              border: OutlineInputBorder(),
-              focusedBorder: OutlineInputBorder(
-                borderSide: BorderSide(color: Color(0xffd9d9d9), width: 1.5),
-                borderRadius: BorderRadius.circular(15),
-              ),
-              enabledBorder: OutlineInputBorder(
-                borderSide: BorderSide(color: Color(0xffd9d9d9), width: 1.5),
-                borderRadius: BorderRadius.circular(15),
+        GestureDetector(
+          onTap: () {
+            Navigator.pushNamed(context, "/search");
+          },
+          child: SizedBox(
+            width: MediaQuery.of(context).size.width * 0.76,
+            child: TextField(
+              onSubmitted: (value) {
+                Navigator.pushNamed(
+                  context,
+                  "/search",
+                  arguments: {
+                    "searchText": "Burger",
+                    "categories": categories,
+                  },
+                );
+              },
+              decoration: InputDecoration(
+                fillColor: Colors.white,
+                filled: true,
+                hintText: "Search recipe",
+                hintStyle: TextStyle(
+                  color: Color(0xffd9d9d9),
+                ),
+                prefixIcon: Icon(
+                  IconsaxPlusLinear.search_normal_1,
+                  color: Color(0xffd9d9d9),
+                ),
+                border: OutlineInputBorder(),
+                focusedBorder: OutlineInputBorder(
+                  borderSide: BorderSide(color: Color(0xffd9d9d9), width: 1.5),
+                  borderRadius: BorderRadius.circular(15),
+                ),
+                enabledBorder: OutlineInputBorder(
+                  borderSide: BorderSide(color: Color(0xffd9d9d9), width: 1.5),
+                  borderRadius: BorderRadius.circular(15),
+                ),
               ),
             ),
           ),
