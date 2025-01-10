@@ -5,7 +5,6 @@ import 'package:iconsax_plus/iconsax_plus.dart';
 import 'main_screens/favorite_screen.dart';
 import 'main_screens/home_screen.dart';
 import 'main_screens/profile_screen.dart';
-import 'search_screen.dart';
 
 class MainScreen extends StatefulWidget {
   const MainScreen({super.key});
@@ -23,7 +22,9 @@ class _MainScreenState extends State<MainScreen> {
     pages = [
       HomeScreen(),
       FavoriteScreen(),
-      SearchScreen(),
+      Container(
+        color: Colors.teal,
+      ),
       Container(
         color: Colors.amber,
       ),

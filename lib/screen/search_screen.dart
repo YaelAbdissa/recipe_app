@@ -54,11 +54,16 @@ class _SearchScreenState extends State<SearchScreen> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                SizedBox(height: 25),
+                SizedBox(height: 15),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Icon(IconsaxPlusLinear.arrow_left),
+                    GestureDetector(
+                      onTap: () {
+                        Navigator.pop(context);
+                      },
+                      child: Icon(IconsaxPlusLinear.arrow_left),
+                    ),
                     SizedBox(
                       width: 60,
                     ),
@@ -202,7 +207,7 @@ class _SearchScreenState extends State<SearchScreen> {
                                 );
                               },
                             ),
-                          )
+                          ),
               ],
             ),
           ),

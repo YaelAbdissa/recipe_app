@@ -467,6 +467,16 @@ class _HomeScreenState extends State<HomeScreen> {
           child: SizedBox(
             width: MediaQuery.of(context).size.width * 0.76,
             child: TextField(
+              onTap: () {
+                Navigator.pushNamed(
+                  context,
+                  "/search",
+                  arguments: {
+                    "searchText": "Burger",
+                    "categories": categories,
+                  },
+                );
+              },
               onSubmitted: (value) {
                 Navigator.pushNamed(
                   context,
