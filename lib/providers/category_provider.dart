@@ -10,10 +10,6 @@ class CategoryProvider extends ChangeNotifier {
   List<CategoryModel> _categories = [];
   List<CategoryModel> getCategories() => _categories;
 
-  bool isMealLoading = false;
-  List<MealCategoryModel> _meals = [];
-  List<MealCategoryModel> getMeals() => _meals;
-
   Future<List<CategoryModel>> getAllCategories() async {
     isLoading = true;
     notifyListeners();
@@ -25,6 +21,10 @@ class CategoryProvider extends ChangeNotifier {
     return _categories;
   }
 
+  bool isMealLoading = false;
+  List<MealCategoryModel> _meals = [];
+  List<MealCategoryModel> getMeals() => _meals;
+
   Future<List<MealCategoryModel>> getMealsBasedOnCategories(
       {required String categoryName}) async {
     isMealLoading = true;
@@ -35,5 +35,20 @@ class CategoryProvider extends ChangeNotifier {
     isMealLoading = false;
     notifyListeners();
     return _meals;
+  }
+
+  bool isSearchMealLoading = false;
+  List<MealCategoryModel> _searchedMeals = [];
+  List<MealCategoryModel> getSearchedMeals() => _meals;
+
+  Future<List<MealCategoryModel>> searchMeal({required String text}) async {
+    isSearchMealLoading = true;
+    notifyListeners();
+
+    final response = await _service.searchMeal(name: text);
+    _searchedMeals = response!;
+    isSearchMealLoading = false;
+    notifyListeners();
+    return _searchedMeals;
   }
 }

@@ -31,7 +31,7 @@ class CategoryService {
   }
 
   Future<List<MealCategoryModel>?> searchMeal({required String name}) async {
-    String url = "${urlString}filter.php?c=$name";
+    String url = "${urlString}search.php?s=$name";
 
     final parsedUrl = Uri.parse(url);
     final response = await http.get(parsedUrl);

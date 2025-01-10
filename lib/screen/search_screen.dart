@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:iconsax_plus/iconsax_plus.dart';
-import 'package:recipes_app_design/models/category_model.dart';
+import 'package:provider/provider.dart';
+
+import '../models/category_model.dart';
+import '../models/meal_category_model.dart';
+import '../providers/category_provider.dart';
 
 class SearchScreen extends StatefulWidget {
   const SearchScreen({super.key});
@@ -12,6 +16,9 @@ class SearchScreen extends StatefulWidget {
 class _SearchScreenState extends State<SearchScreen> {
   int selectedTimeIndex = 0;
   int selectedCategoryIndex = 0;
+  List<MealCategoryModel> meals = [];
+
+  final TextEditingController _searchController = TextEditingController();
   List<String> timeCategory = [
     "All",
     "Newest",
@@ -20,65 +27,187 @@ class _SearchScreenState extends State<SearchScreen> {
   ];
   List<CategoryModel> categoryList = [];
   List<String> rateCategory = ["5", "4", "3", "2", "1"];
+
+  searchMeal() async {
+    Provider.of<CategoryProvider>(context, listen: false)
+        .searchMeal(text: _searchController.text)
+        .then(
+      (value) {
+        setState(() {
+          meals = value;
+        });
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     final data =
         ModalRoute.of(context)?.settings.arguments as Map<String, dynamic>;
     categoryList = data["categories"];
     return Scaffold(
-      body: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 20),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              SizedBox(height: 25),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Icon(IconsaxPlusLinear.arrow_left),
-                  SizedBox(
-                    width: 60,
-                  ),
-                  Expanded(
-                    child: Text(
-                      "Search recipes",
-                      style: TextStyle(
-                        fontSize: 18,
-                        fontWeight: FontWeight.w600,
+      body: Consumer<CategoryProvider>(
+          builder: (context, categoryProvider, child) {
+        return SafeArea(
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 20),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                SizedBox(height: 25),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Icon(IconsaxPlusLinear.arrow_left),
+                    SizedBox(
+                      width: 60,
+                    ),
+                    Expanded(
+                      child: Text(
+                        "Search recipes",
+                        style: TextStyle(
+                          fontSize: 18,
+                          fontWeight: FontWeight.w600,
+                        ),
                       ),
                     ),
-                  ),
-                ],
-              ),
-              SizedBox(height: 15),
-              searchBarWidget(context),
-              SizedBox(height: 15),
-              Text(
-                "Search Result",
-                style: TextStyle(
-                  fontSize: 18,
-                  fontWeight: FontWeight.w600,
+                  ],
                 ),
-              ),
-              Expanded(
-                child: GridView.builder(
-                  shrinkWrap: true,
-                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 2,
+                SizedBox(height: 15),
+                searchBarWidget(context),
+                SizedBox(height: 15),
+                Text(
+                  "Search Result",
+                  style: TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.w600,
                   ),
-                  itemCount: 12,
-                  itemBuilder: (context, index) {
-                    return Card(
-                      child: Center(child: Text("blah")),
-                    );
-                  },
                 ),
-              )
-            ],
+                categoryProvider.isSearchMealLoading
+                    ? Expanded(
+                        child: Center(
+                          child: CircularProgressIndicator(),
+                        ),
+                      )
+                    : meals.isEmpty
+                        ? Expanded(
+                            child: Center(
+                                child: Text(
+                              "Search results will appear here.",
+                              style: TextStyle(
+                                fontSize: 16,
+                                fontWeight: FontWeight.w500,
+                              ),
+                            )),
+                          )
+                        : Expanded(
+                            child: GridView.builder(
+                              shrinkWrap: true,
+                              gridDelegate:
+                                  SliverGridDelegateWithFixedCrossAxisCount(
+                                crossAxisCount: 2,
+                              ),
+                              itemCount: meals.length,
+                              itemBuilder: (context, index) {
+                                return Card(
+                                  child: Stack(
+                                    children: [
+                                      ClipRRect(
+                                        borderRadius: BorderRadius.circular(10),
+                                        child:
+                                            Image.network(meals[index].image),
+                                      ),
+                                      Container(
+                                        decoration: BoxDecoration(
+                                          borderRadius:
+                                              BorderRadius.circular(10),
+                                          gradient: LinearGradient(
+                                            colors: [
+                                              Colors.transparent,
+                                              Colors.black,
+                                            ],
+                                            begin: Alignment.topCenter,
+                                            end: Alignment.bottomCenter,
+                                          ),
+                                        ),
+                                      ),
+                                      Positioned(
+                                        bottom: 10,
+                                        left: 10,
+                                        right: 10,
+                                        child: Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            Text(
+                                              meals[index].name,
+                                              style: TextStyle(
+                                                fontSize: 11,
+                                                fontWeight: FontWeight.w600,
+                                                color: Colors.white,
+                                              ),
+                                              maxLines: 2,
+                                              overflow: TextOverflow.ellipsis,
+                                            ),
+                                            SizedBox(
+                                              height: 8.00,
+                                            ),
+                                            Text(
+                                              "By Spicy Cook",
+                                              style: TextStyle(
+                                                fontSize: 8,
+                                                fontWeight: FontWeight.w400,
+                                                color: Color(0xffa9a9a9),
+                                              ),
+                                            )
+                                          ],
+                                        ),
+                                      ),
+                                      Positioned(
+                                        top: 10,
+                                        right: 10,
+                                        child: Container(
+                                          width: 50,
+                                          height: 23,
+                                          padding: EdgeInsets.symmetric(
+                                              horizontal: 5),
+                                          decoration: BoxDecoration(
+                                            borderRadius:
+                                                BorderRadius.circular(20),
+                                            color: Color(0xffFFE1B3),
+                                          ),
+                                          child: Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceEvenly,
+                                            children: [
+                                              Icon(
+                                                Icons.star,
+                                                color: Color(0xffff9c00),
+                                                size: 15,
+                                              ),
+                                              // SizedBox(width: 5),
+                                              Text(
+                                                "4.5",
+                                                style: TextStyle(
+                                                  fontSize: 11,
+                                                  fontWeight: FontWeight.w400,
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                      )
+                                    ],
+                                  ),
+                                );
+                              },
+                            ),
+                          )
+              ],
+            ),
           ),
-        ),
-      ),
+        );
+      }),
     );
   }
 
@@ -87,6 +216,7 @@ class _SearchScreenState extends State<SearchScreen> {
       children: [
         Expanded(
           child: TextField(
+            controller: _searchController,
             decoration: InputDecoration(
               fillColor: Colors.white,
               filled: true,
@@ -108,7 +238,9 @@ class _SearchScreenState extends State<SearchScreen> {
                 borderRadius: BorderRadius.circular(15),
               ),
             ),
-            onSubmitted: (val) {},
+            onSubmitted: (val) {
+              searchMeal();
+            },
           ),
         ),
         SizedBox(width: 20),
