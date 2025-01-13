@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:recipes_app_design/providers/category_provider.dart';
-import 'package:recipes_app_design/providers/meal_provider.dart';
-import 'package:recipes_app_design/screen/search_screen.dart';
 
+import '/providers/category_provider.dart';
+import '/providers/meal_provider.dart';
+
+import '/screen/search_screen.dart';
+import '/screen/sign_up_screen.dart';
 import 'screen/main_screen.dart';
+import 'screen/sign_in_screen.dart';
 import 'screen/splash_screen.dart';
 
 void main() {
@@ -38,6 +41,8 @@ class MyApp extends StatelessWidget {
         '/': (context) => SplashScreen(),
         '/main': (context) => MainScreen(),
         "/search": (context) => SearchScreen(),
+        "/signup": (context) => SignUpScreen(),
+        "/signin": (context) => SignInScreen(),
       },
     );
   }

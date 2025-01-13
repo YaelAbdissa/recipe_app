@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:iconsax_plus/iconsax_plus.dart';
 
-class SignUpScreen extends StatefulWidget {
-  const SignUpScreen({super.key});
+class SignInScreen extends StatefulWidget {
+  const SignInScreen({super.key});
 
   @override
-  State<SignUpScreen> createState() => _SignUpScreenState();
+  State<SignInScreen> createState() => _SignInScreenState();
 }
 
-class _SignUpScreenState extends State<SignUpScreen> {
+class _SignInScreenState extends State<SignInScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -19,54 +19,22 @@ class _SignUpScreenState extends State<SignUpScreen> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              SizedBox(height: 40),
+              SizedBox(height: 90),
               Text(
-                "Create an account",
+                "Hello,",
                 style: TextStyle(
-                  fontSize: 20,
+                  fontSize: 30,
                   fontWeight: FontWeight.w600,
                 ),
               ),
-              SizedBox(height: 10),
               Text(
-                "Let's help you set up your account,\nit won't take long.",
+                "Welcome Back!",
                 style: TextStyle(
-                  fontSize: 13,
+                  fontSize: 20,
                   fontWeight: FontWeight.w400,
                 ),
               ),
-              SizedBox(height: 25),
-              Text(
-                "Name",
-                style: TextStyle(
-                  fontSize: 14,
-                  fontWeight: FontWeight.w400,
-                ),
-              ),
-              SizedBox(height: 8),
-              TextField(
-                decoration: InputDecoration(
-                  fillColor: Colors.white,
-                  filled: true,
-                  hintText: "Enter Name",
-                  hintStyle: TextStyle(
-                    color: Color(0xffd9d9d9),
-                  ),
-                  border: OutlineInputBorder(),
-                  focusedBorder: OutlineInputBorder(
-                    borderSide:
-                        BorderSide(color: Color(0xffd9d9d9), width: 1.5),
-                    borderRadius: BorderRadius.circular(15),
-                  ),
-                  enabledBorder: OutlineInputBorder(
-                    borderSide:
-                        BorderSide(color: Color(0xffd9d9d9), width: 1.5),
-                    borderRadius: BorderRadius.circular(15),
-                  ),
-                ),
-                onSubmitted: (val) {},
-              ),
-              SizedBox(height: 20),
+              SizedBox(height: 60),
               Text(
                 "Email",
                 style: TextStyle(
@@ -74,7 +42,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   fontWeight: FontWeight.w400,
                 ),
               ),
-              SizedBox(height: 8),
+              SizedBox(height: 10),
               TextField(
                 decoration: InputDecoration(
                   fillColor: Colors.white,
@@ -97,7 +65,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 ),
                 onSubmitted: (val) {},
               ),
-              SizedBox(height: 20),
+              SizedBox(height: 30),
               Text(
                 "Password",
                 style: TextStyle(
@@ -105,7 +73,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   fontWeight: FontWeight.w400,
                 ),
               ),
-              SizedBox(height: 8),
+              SizedBox(height: 10),
               TextField(
                 decoration: InputDecoration(
                   fillColor: Colors.white,
@@ -128,41 +96,10 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 ),
                 onSubmitted: (val) {},
               ),
-              SizedBox(height: 20),
-              Text(
-                "Confirm Password",
-                style: TextStyle(
-                  fontSize: 14,
-                  fontWeight: FontWeight.w400,
-                ),
-              ),
-              SizedBox(height: 8),
-              TextField(
-                decoration: InputDecoration(
-                  fillColor: Colors.white,
-                  filled: true,
-                  hintText: "Retype Password",
-                  hintStyle: TextStyle(
-                    color: Color(0xffd9d9d9),
-                  ),
-                  border: OutlineInputBorder(),
-                  focusedBorder: OutlineInputBorder(
-                    borderSide:
-                        BorderSide(color: Color(0xffd9d9d9), width: 1.5),
-                    borderRadius: BorderRadius.circular(15),
-                  ),
-                  enabledBorder: OutlineInputBorder(
-                    borderSide:
-                        BorderSide(color: Color(0xffd9d9d9), width: 1.5),
-                    borderRadius: BorderRadius.circular(15),
-                  ),
-                ),
-                onSubmitted: (val) {},
-              ),
               TextButton(
                 onPressed: () {},
                 child: Text(
-                  "Accept Terms & Condition",
+                  "Forgot Password?",
                   style: TextStyle(
                     fontSize: 12,
                     fontWeight: FontWeight.w400,
@@ -172,7 +109,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
               ),
               SizedBox(
                 width: MediaQuery.of(context).size.width,
-                height: 55,
+                height: 60,
                 child: ElevatedButton(
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Color(0xff129575),
@@ -185,7 +122,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Text(
-                        "Sign Up",
+                        "Sign In",
                         style: TextStyle(
                           fontSize: 16,
                           fontWeight: FontWeight.w600,
@@ -232,7 +169,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   ),
                 ],
               ),
-              SizedBox(height: 5),
+              SizedBox(height: 20),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
@@ -257,11 +194,12 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   )
                 ],
               ),
+              SizedBox(height: 40),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(
-                    "Already a member?",
+                    "Don't have an account?",
                     style: TextStyle(
                       fontSize: 13,
                       fontWeight: FontWeight.w500,
@@ -269,10 +207,10 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   ),
                   TextButton(
                     onPressed: () {
-                      Navigator.pushNamed(context, "/signin");
+                      Navigator.pushNamed(context, "/signup");
                     },
                     child: Text(
-                      "Sign In",
+                      "Sign up",
                       style: TextStyle(
                         fontSize: 12,
                         fontWeight: FontWeight.w500,
