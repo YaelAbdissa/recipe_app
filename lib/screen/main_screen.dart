@@ -1,7 +1,9 @@
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:iconsax_plus/iconsax_plus.dart';
+import 'package:provider/provider.dart';
 
+import '../providers/user_provider.dart';
 import 'main_screens/favorite_screen.dart';
 import 'main_screens/home_screen.dart';
 import 'main_screens/profile_screen.dart';
@@ -19,18 +21,6 @@ class _MainScreenState extends State<MainScreen> {
 
   @override
   void initState() {
-    pages = [
-      HomeScreen(),
-      FavoriteScreen(),
-      Container(
-        color: Colors.teal,
-      ),
-      Container(
-        color: Colors.amber,
-      ),
-      ProfileScreen(),
-    ];
-
     super.initState();
   }
 
@@ -42,6 +32,16 @@ class _MainScreenState extends State<MainScreen> {
 
   @override
   Widget build(BuildContext context) {
+    UserProvider userProvider =
+        Provider.of<UserProvider>(context, listen: false);
+    pages = [
+      HomeScreen(userProvider: userProvider),
+      FavoriteScreen(),
+      Container(color: Colors.teal),
+      Container(color: Colors.amber),
+      ProfileScreen(),
+    ];
+
     return Scaffold(
       body: pages[selectedindex],
       backgroundColor: Color(0xfff6faf9),

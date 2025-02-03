@@ -5,8 +5,12 @@ import 'package:recipes_app_design/models/category_model.dart';
 import 'package:recipes_app_design/models/meal_category_model.dart';
 import 'package:recipes_app_design/providers/category_provider.dart';
 
+import '../../models/user_model.dart';
+import '../../providers/user_provider.dart';
+
 class HomeScreen extends StatefulWidget {
-  const HomeScreen({super.key});
+  final UserProvider userProvider;
+  const HomeScreen({super.key, required this.userProvider});
 
   @override
   State<HomeScreen> createState() => _HomeScreenState();
@@ -16,12 +20,30 @@ class _HomeScreenState extends State<HomeScreen> {
   List<CategoryModel> categories = [];
   List<MealCategoryModel> meals = [];
   int selectedCategoryIndex = 0;
+  UserModel user = UserModel(
+    id: "",
+    firstName: "",
+    email: "",
+  );
 
   @override
   void initState() {
-    super.initState();
+    getUserData();
     getData();
-    // getMeals();
+
+    super.initState();
+  }
+
+  getUserData() {
+    Provider.of<UserProvider>(context, listen: false)
+        .getCurrentUser()
+        .then((value) {
+      print("object currentUser value ${value.firstName}");
+      setState(() {
+        user = value;
+      });
+      print("object currentUser user ${user.firstName}");
+    });
   }
 
   getData() async {
@@ -538,7 +560,7 @@ class _HomeScreenState extends State<HomeScreen> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                "Hello Fola",
+                "Hello ${user.firstName}",
                 style: TextStyle(
                   fontSize: 30,
                   fontWeight: FontWeight.w600,

@@ -1,3 +1,4 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -6,16 +7,20 @@ import '/providers/meal_provider.dart';
 
 import '/screen/search_screen.dart';
 import '/screen/sign_up_screen.dart';
+import 'providers/user_provider.dart';
 import 'screen/main_screen.dart';
 import 'screen/sign_in_screen.dart';
 import 'screen/splash_screen.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
   runApp(
     MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (_) => CategoryProvider()),
         ChangeNotifierProvider(create: (_) => MealProvider()),
+        ChangeNotifierProvider(create: (_) => UserProvider()),
       ],
       child: MyApp(),
     ),

@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -11,10 +12,15 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashScreen> {
+  User? user = FirebaseAuth.instance.currentUser;
   @override
   void initState() {
     Timer(Duration(seconds: 3), () {
-      Navigator.pushNamed(context, "/main");
+      if (user == null) {
+        Navigator.pushNamed(context, "/signup");
+      } else {
+        Navigator.pushNamed(context, "/main");
+      }
     });
     super.initState();
   }
