@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 import 'package:recipes_app_design/models/category_model.dart';
 import 'package:recipes_app_design/models/meal_category_model.dart';
 import 'package:recipes_app_design/providers/category_provider.dart';
+import 'package:recipes_app_design/widget/rating_widget.dart';
 
 import '../../models/user_model.dart';
 import '../../providers/user_provider.dart';
@@ -54,6 +55,7 @@ class _HomeScreenState extends State<HomeScreen> {
         Provider.of<CategoryProvider>(context, listen: false)
             .getMealsBasedOnCategories(categoryName: "beef")
             .then((valueMeal) {
+          if (!mounted) return;
           setState(() {
             categories = value;
             meals = valueMeal;
@@ -403,32 +405,7 @@ class _HomeScreenState extends State<HomeScreen> {
           Positioned(
             right: 0,
             top: 35,
-            child: Container(
-              width: 45,
-              height: 23,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(20),
-                color: Color(0xffFFE1B3),
-              ),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  Icon(
-                    Icons.star,
-                    color: Color(0xffff9c00),
-                    size: 15,
-                  ),
-                  // SizedBox(width: 5),
-                  Text(
-                    "4.5",
-                    style: TextStyle(
-                      fontSize: 11,
-                      fontWeight: FontWeight.w400,
-                    ),
-                  ),
-                ],
-              ),
-            ),
+            child: RatingWidget(),
           )
         ],
       ),

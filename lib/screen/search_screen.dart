@@ -5,6 +5,7 @@ import 'package:provider/provider.dart';
 import '../models/category_model.dart';
 import '../models/meal_category_model.dart';
 import '../providers/category_provider.dart';
+import '../widget/rating_widget.dart';
 
 class SearchScreen extends StatefulWidget {
   const SearchScreen({super.key});
@@ -171,36 +172,7 @@ class _SearchScreenState extends State<SearchScreen> {
                                       Positioned(
                                         top: 10,
                                         right: 10,
-                                        child: Container(
-                                          width: 50,
-                                          height: 23,
-                                          padding: EdgeInsets.symmetric(
-                                              horizontal: 5),
-                                          decoration: BoxDecoration(
-                                            borderRadius:
-                                                BorderRadius.circular(20),
-                                            color: Color(0xffFFE1B3),
-                                          ),
-                                          child: Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.spaceEvenly,
-                                            children: [
-                                              Icon(
-                                                Icons.star,
-                                                color: Color(0xffff9c00),
-                                                size: 15,
-                                              ),
-                                              // SizedBox(width: 5),
-                                              Text(
-                                                "4.5",
-                                                style: TextStyle(
-                                                  fontSize: 11,
-                                                  fontWeight: FontWeight.w400,
-                                                ),
-                                              ),
-                                            ],
-                                          ),
-                                        ),
+                                        child: RatingWidget(),
                                       )
                                     ],
                                   ),
